@@ -8,26 +8,42 @@ my $green = `tput setaf 2`;
 my $sgr0 = `tput sgr0`;
 my $type;
 
-if ( scalar(@ARGV) == 1 ) {
+if ( scalar(@ARGV) < 2 ) {
 	printf "${red}error:${sgr0} the following required arguments were not provided:\n";
 	printf "  ${green}<path>${sgr0}\n";
-	printf "\nUSAGE:\n  cargo template <path>\n";
+	printf "\nUSAGE:\n  cargo template [options] <path>\n";
 	exit 1;
 }
 
 my $arg = $ARGV[1];
+my $project = "";
 
 if ( $arg eq "--lib" ) {
 	$type = "lib";
 } elsif ( $arg eq "--bin" ) {
 	$type = "bin";
+} elsif ( $arg eq "--help" ) {
+	printf "\nUSAGE:
+  cargo template [options] <path>
+";
+	printf "\nOPTIONS:
+  --bin   use a binary executable template [default]
+  --lib   use a library project template
+  --help  print this help message and exit
+";
+	exit;
 } else {
-	printf "${red}error:${sgr0} argument ${gold}${arg}${sgr0} isn't valid in this context\n";
-	printf "did you mean: ${green}--lib${sgr0} or ${green}--bin${sgr0}\n";
-	exit 1;
+	if ( substr($arg, 0, 1) eq '-' ) {
+		printf "${red}error:${sgr0} argument ${gold}${arg}${sgr0} isn't valid in this context\n";
+		printf "did you mean: ${green}--lib${sgr0} or ${green}--bin${sgr0}\n";
+		exit 1;
+	}
+
+	$project = $arg;
+	$type = "bin";
 }
 
-my $project = $ARGV[2];
+$project = $ARGV[2] if $project eq "";
 
 my $status = mkdir $project;
 if ( $status != 1 ) {
