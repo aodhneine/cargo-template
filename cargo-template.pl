@@ -57,7 +57,15 @@ mkdir $project . "/src"
 if ( $type eq "lib" ) {
 	open(my $librs, ">", $project . "/src/lib.rs")
 		or die "failed to open file";
-	printf $librs "#[cfg(test)]\nmod tests {\n\t#[test]\n\tfn it_works() {\n\t}\n}\n";
+	# Please don't replace the tabs below in the string with spaces.
+	printf $librs "#[cfg(test)]
+mod tests {
+	#[test]
+	fn it_works() {
+	}
+}
+";
+close $librs;
 } elsif ( $type eq "bin" ) {
 	open(my $mainrs, ">", $project . "/src/main.rs")
 		or die "failed to open file";
