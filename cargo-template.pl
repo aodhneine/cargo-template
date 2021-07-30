@@ -5,6 +5,7 @@ use warnings;
 my $red = `tput setaf 1` . `tput bold`;
 my $gold = `tput setaf 3`;
 my $green = `tput setaf 2`;
+my $bold = `tput bold`;
 my $sgr0 = `tput sgr0`;
 my $type;
 
@@ -81,11 +82,15 @@ mod tests {
 	}
 }
 ";
-close $librs;
+	close $librs;
+
+	printf "     ${green}${bold}Created${sgr0} library `$project` package\n";
 } elsif ( $type eq "bin" ) {
 	open(my $mainrs, ">", $project . "/src/main.rs")
 		or die "failed to open file";
 	printf $mainrs "pub fn main() {\n}\n";
-	close $mainrs
+	close $mainrs;
+
+	printf "     ${green}${bold}Created${sgr0} binary `$project` package\n";
 }
 
