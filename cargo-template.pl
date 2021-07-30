@@ -39,7 +39,15 @@ if ( $status != 1 ) {
 open(my $ctoml, ">", $project . "/Cargo.toml")
 	or die "failed to open a file";
 
-printf $ctoml "cargo-features = [\"edition2021\"]\n\n[package]\nname = \"${project}\"\nversion = \"0.1.0\"\nedition = \"2021\"\nauthors = [\"Aodhnait Étaín <aodhneine\@pm.me>\"]\nlicense = \"0BSD\"\n";
+printf $ctoml "cargo-features = [\"edition2021\"]
+
+[package]
+name = \"${project}\"
+version = \"0.1.0\"
+edition = \"2021\"
+authors = [\"Aodhnait Étaín <aodhneine\@pm.me>\"]
+license = \"0BSD\"
+";
 
 close $ctoml;
 
