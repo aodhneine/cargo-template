@@ -64,6 +64,9 @@ version = \"0.1.0\"
 edition = \"2021\"
 authors = [\"Aodhnait Étaín <aodhneine\@pm.me>\"]
 license = \"0BSD\"
+
+[profile.dev]
+debug = 0
 ";
 
 close $ctoml;
